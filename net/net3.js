@@ -1,7 +1,7 @@
 var net = require('net');
 
-var sourceport = 1234;
-var destport = 1235;
+var sourceport = 3002;
+var destport = 3003;
 
 net.createServer(function(s)
 {
