@@ -1,12 +1,6 @@
 
-/*
-In the node.js intro tutorial (http://nodejs.org/), they show a basic tcp
-server, but for some reason omit a client connecting to it.  I added an
-example at the bottom.
-Save the following server in example.js:
-*/
-
 var net = require('net')
+const { REQ_CON } = require('./constants')
 
 var { generateServer } = require('./server')
 
@@ -16,13 +10,15 @@ var server = net.createServer(function (socket) {
   console.log('start server')
   console.log('debug remoteAddress', socket.remoteAddress)
   console.log('debug localAddress', socket.localAddress)
+  console.log('debug localPort', socket.localPort)
+  console.log('debug remotePort', socket.remotePort)
   socket.setEncoding('utf8')
 
   socket.on('data', function (data) {
-    console.log('server server onData ', data)
+    console.log('server daemon onData ', data)
     // socket.write(data);
     // socket.pipe(socket)
-    if (data === 'fuckme') {
+    if (data === REQ_CON) {
       generateServer(socket)
     }
   })
@@ -40,4 +36,6 @@ var server = net.createServer(function (socket) {
   })
 })
 
-server.listen(3002)
+server.listen(3002, () => {
+  console.log('server daemon start')
+})

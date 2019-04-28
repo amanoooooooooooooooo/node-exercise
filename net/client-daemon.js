@@ -1,39 +1,33 @@
-/*
-And connect with a tcp client from the command line using netcat, the *nix
-utility for reading and writing across tcp/udp network connections.  I've only
-used it for debugging myself.
-$ netcat 127.0.0.1 1337
-You should see:
-> Echo server
-*/
-
-/* Or use this example tcp client written in node.js.  (Originated with
-example code from
-http://www.hacksparrow.com/tcp-socket-programming-in-node-js.html.) */
 
 var net = require('net')
+const { REQ_CON } = require('./constants')
 
-var client = new net.Socket()
-client.connect(3002, '127.0.0.1', function () {
-  console.log('client daemon start')
-  client.write('fuckme')
+const PORT = process.env.PORT || 3002
+const IP = process.env.IP || '39.104.226.149'
+const SERVICE_PORT = process.env.SERVICE_PORT || 3001
+
+var socket = new net.Socket()
+socket.connect(PORT, IP, function () {
+  console.log('client daemon connected')
+  socket.write(REQ_CON)
+  console.log('debug remoteAddress', socket.remoteAddress)
+  console.log('debug localAddress', socket.localAddress)
+  console.log('debug localPort', socket.localPort)
+  console.log('debug remotePort', socket.remotePort)
 })
 
-client.on('data', function (data) {
+socket.setKeepAlive(true)
+socket.on('data', function (data) {
   console.log('client server onData ' + data)
 })
 
 var to = net.createConnection({
-  port: 4003
+  port: SERVICE_PORT
 })
 
-client.pipe(to)
-to.pipe(client)
+socket.pipe(to)
+to.pipe(socket)
 
-client.on('close', function () {
+socket.on('close', function () {
   console.log('Connection closed')
 })
-
-// setInterval(() => {
-//     client.write(Buffer.from('abcd', 'hex'));
-// }, 2000);
