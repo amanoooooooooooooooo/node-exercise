@@ -10,7 +10,8 @@ module.exports = {
   node: {
     fs: 'empty',
     net: 'mock',
-    Buffer: 'mock'
+    Buffer: 'mock',
+    path: true
   },
   optimization: {
     minimizer: [

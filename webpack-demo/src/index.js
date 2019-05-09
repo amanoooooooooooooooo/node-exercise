@@ -15,10 +15,12 @@ import { cube } from './math.js'
 import net from 'net'
 import fs from 'fs'
 import Buffer from 'Buffer'
+import path from 'path'
 
 console.log('net is ', net)
 console.log('fs is ', fs)
 console.log('Buffer is ', Buffer)
+console.log('path is ', path)
 
 function component () {
   var element = document.createElement('pre')

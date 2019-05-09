@@ -1,25 +1,23 @@
 
-var Benchmark = require('benchmark');
-var suite = new Benchmark.Suite;
-
-var suite = new Benchmark.Suite;
+var Benchmark = require('benchmark')
+var suite = new Benchmark.Suite()
 
 // add tests
-suite.add('RegExp#test', function() {
-  /o/.test('Hello World!');
+suite.add('RegExp#test', function () {
+  /o/.test('Hello World!')
 })
-.add('String#indexOf', function() {
-  'Hello World!'.indexOf('o') > -1;
-})
+  .add('String#indexOf', function () {
+    'Hello World!'.indexOf('o') > -1
+  })
 // add listeners
-.on('cycle', function(event) {
-  console.log('cycle', String(event.target));
-})
-.on('complete', function() {
-  console.log('Fastest is ' + this.filter('fastest').map('name'));
-})
+  .on('cycle', function (event) {
+    console.log('cycle', String(event.target))
+  })
+  .on('complete', function () {
+    console.log('Fastest is ' + this.filter('fastest').map('name'))
+  })
 // run async
-.run({ 'async': true });
+  .run({ 'async': true })
 
 // logs:
 // => RegExp#test x 4,161,532 +-0.99% (59 cycles)
