@@ -13,8 +13,8 @@ function generateServer (daemonSocket) {
 
     socket.setEncoding('utf8')
 
-    socket.pipe(daemonSocket)
     daemonSocket.pipe(socket)
+    socket.pipe(daemonSocket)
 
     // socket.on('data', function (chunk) {
     //   socket.write(chunk)

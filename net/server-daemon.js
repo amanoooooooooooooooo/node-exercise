@@ -28,7 +28,7 @@ var server = net.createServer(function (socket) {
   // socket.pipe(socket);
   socket.on('end', function (err) {
     if (err) console.log('error ', err)
-    console.log('onEnd ')
+    console.log('server daemon onEnd ')
   })
 
   socket.on('error', function (err) {

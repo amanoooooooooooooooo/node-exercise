@@ -1,8 +1,9 @@
-// var server = require('./http')
-// var router = require('./router')
+var server = require('./http')
+var router = require('./router')
 
-// server.start(router.route)
+server.start(router.route)
 
-const addon = require('./build/Release/addon.node')
-console.log('addon is ', addon)
-console.log('hello is ', addon.hello())
+/// / test addon
+// const addon = require('./build/Release/addon.node')
+// console.log('addon is ', addon)
+// console.log('hello is ', addon.hello())

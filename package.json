@@ -10,7 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.18.0",
     "benchmark": "^2.1.4",
+    "express": "^4.16.4",
     "microtime": "^3.0.0",
     "node-gyp": "^3.8.0",
     "nodemon": "^1.18.11",
