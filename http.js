@@ -1,5 +1,21 @@
 var http = require('http')
+var https = require('https')
 var url = require('url')
+
+var fs = require('fs')
+
+var privateKey = fs.readFileSync('./whalewbskey.pem')
+var certificate = fs.readFileSync('./whalewbs.pem')
+
+const option2 = {
+  // hostname: 'z.whalewbs.com',
+  pfx: fs.readFileSync('./star.whalewbs.com.pfx'),
+  passphrase: '123456'
+}
+const option = {
+  key: privateKey,
+  cert: certificate
+}
 
 function start (route) {
   function onRequest (request, response) {
@@ -13,38 +29,8 @@ function start (route) {
     response.end()
   }
 
-  http.createServer(onRequest).listen(3002)
+  https.createServer(option2, onRequest).listen(443)
   console.log('Server has started.')
 }
 
 exports.start = start
-
-/// //// request
-// var http = require('http')
-
-// const options = {
-//   hostname: 'localhost',
-//   port: 3000,
-//   path: '/headers'
-//   // method: 'POST',
-//   // headers: {
-//   //   'Content-Type': 'application/x-www-form-urlencoded',
-//   //   'Content-Length': Buffer.byteLength(postData)
-//   // }
-// }
-
-// const req = http.request(options, function (res) {
-//   // console.log('res ', res)
-//   // res.pipe(process.stdout)
-//   console.log(`STATUS: ${res.statusCode}`)
-//   console.log(`HEADERS: ${JSON.stringify(res.headers)}`)
-//   res.setEncoding('utf8')
-//   res.on('data', (chunk) => {
-//     console.log(`BODY: ${chunk}`)
-//   })
-//   res.on('end', () => {
-//     console.log('No more data in response.')
-//   })
-// })
-
-// req.end()
